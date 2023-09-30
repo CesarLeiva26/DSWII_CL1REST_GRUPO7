@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "/api/ejercicio")
-public class EjerciciosController {
+public class EjercicioController {
 
     public EjercicioService ejercicioService;
 
@@ -35,8 +35,23 @@ public class EjerciciosController {
     }
 
     @GetMapping("/averiguarDNI")
-    public ResponseEntity<MensajeResponse> averiguarDNI(@RequestParam int anioNacimiento) {
+    public ResponseEntity<MensajeResponse> averiguarDNI(
+            @RequestParam int anioNacimiento) {
         MensajeResponse respuesta = ejercicioService.averiguarDNI(anioNacimiento);
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/paresDescendentes")
+    public ResponseEntity<MensajeResponse> numerosParesDescendentes() {
+        MensajeResponse respuesta = ejercicioService.numerosParesDescendentes();
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping("/calcularPago")
+    public ResponseEntity<MensajeResponse> calcularPago(
+            @RequestParam int cantidad,
+            @RequestParam double precio) {
+        MensajeResponse respuesta = ejercicioService.calcularPago(cantidad, precio);
         return ResponseEntity.ok(respuesta);
     }
 }
